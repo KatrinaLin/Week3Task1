@@ -2,27 +2,61 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Add {
     public int getSumOfEvens(int leftBorder, int rightBorder) {
-        throw new NotImplementedException();
+
+        if (leftBorder > rightBorder) {
+            int temp = leftBorder;
+            leftBorder = rightBorder;
+            rightBorder = temp;
+        }
+
+        int result = IntStream.rangeClosed(leftBorder, rightBorder)
+                .filter(x -> x % 2 == 0).sum();
+
+        return result;
     }
 
     public int getSumOfOdds(int leftBorder, int rightBorder) {
-        throw new NotImplementedException();
+
+        if (leftBorder > rightBorder) {
+            int temp = leftBorder;
+            leftBorder = rightBorder;
+            rightBorder = temp;
+        }
+
+        int result = IntStream.rangeClosed(leftBorder, rightBorder)
+                .filter(x -> x % 2 != 0).sum();
+
+        return result;
     }
 
     public int getSumTripleAndAddTwo(List<Integer> arrayList) {
-        throw new NotImplementedException();
+
+        return arrayList.stream().mapToInt(x -> x * 3 + 2).sum();
+
     }
 
     public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
-        throw new NotImplementedException();
+
+        List<Integer> result = new ArrayList<>();
+
+        arrayList.stream().forEach(x -> {
+            if (x % 2 != 0) {x = x * 3 + 2;}
+            result.add(x); });
+
+        return result;
     }
 
     public int getSumOfProcessedOdds(List<Integer> arrayList) {
-        throw new NotImplementedException();
+
+        return arrayList.stream().filter(x -> x % 2 != 0).mapToInt(x -> x * 3 + 5).sum();
+
     }
 
     public double getMedianOfEvenIndex(List<Integer> arrayList) {
@@ -30,11 +64,15 @@ public class Add {
     }
 
     public double getAverageOfEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+
+        return arrayList.stream().filter(x -> x % 2 == 0).mapToDouble(x -> x).average().orElse(0);
+
     }
 
     public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElment) {
-        throw new NotImplementedException();
+
+        return arrayList.stream().filter(x -> x % 2 == 0 && x == specialElment).findAny().isPresent();
+
     }
 
     public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
