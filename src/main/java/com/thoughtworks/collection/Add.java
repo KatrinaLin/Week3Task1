@@ -4,8 +4,10 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Add {
     public int getSumOfEvens(int leftBorder, int rightBorder) {
@@ -38,7 +40,9 @@ public class Add {
 
     public int getSumTripleAndAddTwo(List<Integer> arrayList) {
 
-        return arrayList.stream().mapToInt(x -> x * 3 + 2).sum();
+        int result = arrayList.stream().mapToInt(x -> x * 3 + 2).sum();
+
+        return result;
 
     }
 
@@ -55,12 +59,22 @@ public class Add {
 
     public int getSumOfProcessedOdds(List<Integer> arrayList) {
 
-        return arrayList.stream().filter(x -> x % 2 != 0).mapToInt(x -> x * 3 + 5).sum();
+        int result = arrayList.stream().filter(x -> x % 2 != 0).mapToInt(x -> x * 3 + 5).sum();
+
+        return result;
 
     }
 
     public double getMedianOfEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+
+        Supplier<IntStream> supplier = () -> arrayList.stream().filter(x -> x % 2 == 0).mapToInt(x -> x);
+
+        long count = supplier.get().count();
+
+        double median = supplier.get().sorted().skip((count - 1)/ 2).limit(2 - count % 2).average().orElse(Double.NaN);
+
+        return median;
+
     }
 
     public double getAverageOfEvenIndex(List<Integer> arrayList) {
@@ -76,7 +90,9 @@ public class Add {
     }
 
     public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+
+        return arrayList.stream().filter(x -> x % 2 == 0).distinct().collect(Collectors.toList());
+
     }
 
     public List<Integer> sortByEvenAndOdd(List<Integer> arrayList) {
