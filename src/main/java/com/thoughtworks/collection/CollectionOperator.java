@@ -1,12 +1,11 @@
 package com.thoughtworks.collection;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class CollectionOperator {
 
@@ -16,7 +15,9 @@ public class CollectionOperator {
 
         try {
 
-            List<Integer> result = IntStream.rangeClosed(border[0], border[1]).boxed().collect(Collectors.toList());
+            List<Integer> result = IntStream.rangeClosed(border[0], border[1])
+                    .boxed()
+                    .collect(Collectors.toList());
 
             if (left > right) {
                 Collections.reverse(result);
@@ -45,7 +46,10 @@ public class CollectionOperator {
 
         try {
 
-            List<Integer> result = IntStream.rangeClosed(border[0], border[1]).filter(x -> x % 2 == 0).boxed().collect(Collectors.toList());
+            List<Integer> result = IntStream.rangeClosed(border[0], border[1])
+                    .filter(x -> x % 2 == 0)
+                    .boxed()
+                    .collect(Collectors.toList());
 
             if (left > right) {
                 Collections.reverse(result);
@@ -60,7 +64,10 @@ public class CollectionOperator {
 
     public List<Integer> popEvenElments(int[] array) {
 
-        return Arrays.stream(array).filter(x -> x % 2 == 0).boxed().collect(Collectors.toList());
+        return Arrays.stream(array)
+                .filter(x -> x % 2 == 0)
+                .boxed()
+                .collect(Collectors.toList());
 
     }
 
@@ -71,10 +78,21 @@ public class CollectionOperator {
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
-        throw new NotImplementedException();
+
+        List<Integer> list2 = Arrays.stream(secondArray).boxed().collect(Collectors.toList());
+
+        return Arrays.stream(firstArray)
+                .boxed()
+                .filter(list2::contains)
+                .collect(Collectors.toList());
+
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
-        throw new NotImplementedException();
+
+        return Stream.concat(Arrays.stream(firstArray), Arrays.stream(secondArray))
+                .distinct()
+                .collect(Collectors.toList());
+
     }
 }
