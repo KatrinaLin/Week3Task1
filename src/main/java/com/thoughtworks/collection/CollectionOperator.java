@@ -31,7 +31,7 @@ public class CollectionOperator {
 
     }
 
-    private int[] processBorder(int a, int b) {
+    protected static int[] processBorder(int a, int b) {
         int[] border = new int[2];
 
         border[0] = a <= b ? a : b;
