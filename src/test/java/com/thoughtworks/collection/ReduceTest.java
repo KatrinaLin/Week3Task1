@@ -66,7 +66,7 @@ public class ReduceTest {
         Integer[] array = new Integer[]{1, 4, 6, 2, 3, 10, 9, 8, 11, 2, 19, 30};
         List<Integer> arrayList = Arrays.asList(array);
 
-        SingleLink<Integer> singleLink = mock(SingleLink.class);
+        SingleLinkImpl singleLink = mock(SingleLinkImpl.class);
         when(singleLink.getNode(6)).thenReturn(10);
         when(singleLink.getNode(7)).thenReturn(9);
 

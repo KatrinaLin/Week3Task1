@@ -1,12 +1,8 @@
 package com.thoughtworks.collection;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Reduce{
 
@@ -78,9 +74,17 @@ public class Reduce{
     }
 
     //实现接口SingleLink，然后再此函数内使用
-    public Double getMedianInLinkList(SingleLink singleLink) {
+    public Double getMedianInLinkList(SingleLinkImpl singleLink) {
 
-        return 9.5;
+        arrayList.stream().forEach(i -> singleLink.addTailPointer(i));
+
+        int size = arrayList.size();
+
+        if (size % 2 == 0) {
+            return ((Integer)singleLink.getNode(size / 2 + 1) + (Integer)singleLink.getNode(size / 2)) / 2.0;
+        } else {
+            return (Double)singleLink.getNode(size / 2 + 1);
+        }
     }
 
     public int getLastOdd() {
